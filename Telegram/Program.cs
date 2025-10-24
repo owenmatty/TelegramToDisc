@@ -17,7 +17,6 @@ class Program
         new ChannelConfig { DisplayName = "US SPORT ON TV", DiscordWebhook = Environment.GetEnvironmentVariable("DISCORD_WEBHOOK_BASKETBALL") },
         new ChannelConfig { DisplayName = "COMBAT SPORT ON TV", DiscordWebhook = Environment.GetEnvironmentVariable("DISCORD_WEBHOOK_COMBAT") },
         new ChannelConfig { DisplayName = "OTHER SPORT ON TV", DiscordWebhook = Environment.GetEnvironmentVariable("DISCORD_WEBHOOK_OTHER") }
-        // Add more channels here
     };
 
     const string CacheFile = "processed_cache.json";
@@ -30,6 +29,9 @@ class Program
 
         // Remove cache entries older than 3 days
         cacheRecords.RemoveAll(r => r.PostedAt < DateTime.UtcNow.AddDays(-3));
+
+        // Write session from secret (if set)
+        WriteSessionFromSecret();
 
         using var client = new WTelegram.Client(Config);
         await client.LoginUserIfNeeded();
@@ -71,8 +73,7 @@ class Program
             {
                 // Skip if message was not posted today in UK time
                 var msgUkDate = TimeZoneInfo.ConvertTimeFromUtc(msg.date, ukZone).Date;
-                if (msgUkDate != ukNow.Date)
-                    continue;
+                if (msgUkDate != ukNow.Date) continue;
 
                 string key = $"{channelConfig.DisplayName}-{msg.id}";
                 if (cacheRecords.Any(r => r.Key == key)) continue;
@@ -107,6 +108,14 @@ class Program
         }
 
         Console.WriteLine("Done.");
+    }
+
+    static void WriteSessionFromSecret()
+    {
+        var base64 = Environment.GetEnvironmentVariable("TELEGRAM_SESSION");
+        if (string.IsNullOrEmpty(base64)) return;
+        var bytes = Convert.FromBase64String(base64);
+        File.WriteAllBytes("session.session", bytes);
     }
 
     static async Task<bool> PostToDiscord(byte[] fileData, string filename, string caption, string webhook)
@@ -161,10 +170,4 @@ class Program
         return what switch
         {
             "api_id" => Environment.GetEnvironmentVariable("TELEGRAM_API_ID"),
-            "api_hash" => Environment.GetEnvironmentVariable("TELEGRAM_API_HASH"),
-            "phone_number" => Environment.GetEnvironmentVariable("TELEGRAM_PHONE"),
-            "session_pathname" => "session.session",
-            _ => null
-        };
-    }
-}
+            "api_hash" => Environment.GetEnvironmentVariable("TELEGRAM_A
