@@ -166,9 +166,15 @@ class Program
     class CacheDto { public List<CacheRecord> Records { get; set; } = new(); }
     class CacheRecord { public string Key { get; set; } = ""; public DateTime PostedAt { get; set; } }
 
-    static string Config(string what)
+static string Config(string what)
+{
+    return what switch
     {
-        return what switch
-        {
-            "api_id" => Environment.GetEnvironmentVariable("TELEGRAM_API_ID"),
-            "api_hash" => Environment.GetEnvironmentVariable("TELEGRAM_A
+        "api_id" => Environment.GetEnvironmentVariable("TELEGRAM_API_ID"),
+        "api_hash" => Environment.GetEnvironmentVariable("TELEGRAM_API_HASH"),
+        "phone_number" => Environment.GetEnvironmentVariable("TELEGRAM_PHONE"),
+        "session_pathname" => "session.session",
+        _ => null
+    };
+}
+
