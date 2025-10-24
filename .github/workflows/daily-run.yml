@@ -1,0 +1,34 @@
+name: Twice Daily Telegram → Discord Poster (UK Time)
+
+on:
+  schedule:
+    - cron: '0 9 * * *'    # 10:00 AM UK time (Europe/London)
+    - cron: '15 9 * * *'   # 10:15 AM UK time (Europe/London)
+  workflow_dispatch:
+
+jobs:
+  run:
+    runs-on: windows-latest
+
+    env:
+      TZ: Europe/London   # Ensures local time alignment (handles GMT/BST automatically)
+
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v4
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 8.0.x
+
+      - name: Run Telegram → Discord Bot
+        env:
+          DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
+          TELEGRAM_API_ID: ${{ secrets.TELEGRAM_API_ID }}
+          TELEGRAM_API_HASH: ${{ secrets.TELEGRAM_API_HASH }}
+          TELEGRAM_PHONE: ${{ secrets.TELEGRAM_PHONE }}
+        run: |
+          echo "Running job at $(date)"
+          dotnet restore
+          dotnet run --configuration Release
