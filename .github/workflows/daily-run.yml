@@ -3,19 +3,16 @@ name: Telegram to Discord Bot
 on:
   workflow_dispatch:
 #  schedule:
-#    - cron: "0 * * * *" # hourly run if desired
+#    - cron: "0 * * * *"
 
 jobs:
   run-bot:
     runs-on: windows-latest
-    concurrency:
-      group: telegram-discord-bot
-      cancel-in-progress: false
 
     env:
       TZ: Europe/London
-     # DISCORD_WEBHOOK_FOOTBALL: ${{ secrets.DISCORD_WEBHOOK_FOOTBALL }}
-   #   DISCORD_WEBHOOK_US: ${{ secrets.DISCORD_WEBHOOK_US }}
+      DISCORD_WEBHOOK_FOOTBALL: ${{ secrets.DISCORD_WEBHOOK_FOOTBALL }}
+      DISCORD_WEBHOOK_US: ${{ secrets.DISCORD_WEBHOOK_US }}
       DISCORD_WEBHOOK_COMBAT: ${{ secrets.DISCORD_WEBHOOK_COMBAT }}
       DISCORD_WEBHOOK_OTHER: ${{ secrets.DISCORD_WEBHOOK_OTHER }}
       TELEGRAM_API_ID: ${{ secrets.TELEGRAM_API_ID }}
@@ -24,33 +21,25 @@ jobs:
       TELEGRAM_SESSION: ${{ secrets.TELEGRAM_SESSION }}
 
     steps:
-      - name: Check out repository
+      - name: Checkout repository
         uses: actions/checkout@v4
-
-      # Restore previous cache artifact
-      - name: Download processed cache
-        uses: actions/download-artifact@v4
         with:
-          name: processed-cache
-          path: Telegram
-        continue-on-error: true
+          persist-credentials: true
 
-      # Setup .NET 8
       - name: Setup .NET
         uses: actions/setup-dotnet@v4
         with:
           dotnet-version: 8.0.x
 
-      # Build & run bot
       - name: Run Telegram → Discord Bot
         run: |
-          echo "Starting bot run at $(date)"
           dotnet restore
           dotnet run --configuration Release --project Telegram/Telegram.csproj
 
-      # Upload updated cache for next run
-      - name: Upload processed cache
-        uses: actions/upload-artifact@v4
-        with:
-          name: processed-cache
-          path: Telegram/processed_cache.json
+      - name: Commit updated cache
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add Telegram/processed_cache.json
+          git diff --cached --quiet || git commit -m "Update processed cache [skip ci]"
+          git push
