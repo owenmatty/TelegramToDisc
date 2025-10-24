@@ -14,7 +14,7 @@ class Program
     static readonly List<ChannelConfig> Channels = new()
 {
     new ChannelConfig { DisplayName = "FOOTBALL ON TV", DiscordWebhook = Environment.GetEnvironmentVariable("DISCORD_WEBHOOK_FOOTBALL") },
-    new ChannelConfig { DisplayName = "US SPORT ON TV", DiscordWebhook = Environment.GetEnvironmentVariable("DISCORD_WEBHOOK_BASKETBALL") },
+    new ChannelConfig { DisplayName = "US SPORT ON TV", DiscordWebhook = Environment.GetEnvironmentVariable("DISCORD_WEBHOOK_US") },
     new ChannelConfig { DisplayName = "COMBAT SPORT ON TV", DiscordWebhook = Environment.GetEnvironmentVariable("DISCORD_WEBHOOK_COMBAT") },
     new ChannelConfig { DisplayName = "OTHER SPORT ON TV", DiscordWebhook = Environment.GetEnvironmentVariable("DISCORD_WEBHOOK_OTHER") }
 };
