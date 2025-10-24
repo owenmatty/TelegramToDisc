@@ -2,8 +2,9 @@ name: Telegram to Discord Bot
 
 on:
   workflow_dispatch:
-  # schedule:
-  #   - cron: "0 * * * *"  # every hour (uncomment later when stable)
+  schedule:
+    - cron: "0 9-21 * * *"  # Every hour between 9:00 and 21:00 UTC
+
 
 permissions:
   contents: write  # ✅ allows committing cache updates
