@@ -1,9 +1,9 @@
 name: Twice Daily Telegram → Discord Poster (UK Time)
 
-on:
-  schedule:
-    - cron: '0 9 * * *'    # 10:00 AM UK
-    - cron: '15 9 * * *'   # 10:15 AM UK
+# on:
+#  schedule:
+ #   - cron: '0 9 * * *'    # 10:00 AM UK
+ #   - cron: '15 9 * * *'   # 10:15 AM UK
   workflow_dispatch:
 
 jobs:
