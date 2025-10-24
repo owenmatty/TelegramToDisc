@@ -10,7 +10,7 @@ using WTelegram;
 
 class Program
 {
-    // List of private channels and their Discord webhooks
+    // Telegram channels & Discord webhooks
     static readonly List<ChannelConfig> Channels = new()
     {
         new ChannelConfig { DisplayName = "FOOTBALL ON TV", DiscordWebhook = Environment.GetEnvironmentVariable("DISCORD_WEBHOOK_FOOTBALL") },
@@ -19,6 +19,7 @@ class Program
         new ChannelConfig { DisplayName = "OTHER SPORT ON TV", DiscordWebhook = Environment.GetEnvironmentVariable("DISCORD_WEBHOOK_OTHER") }
     };
 
+    const string CacheFolder = "Telegram";
     const string CacheFile = "Telegram/processed_cache.json";
     static List<CacheRecord> cacheRecords = new();
     static readonly HttpClient http = new();
@@ -27,10 +28,10 @@ class Program
     {
         LoadCache();
 
-        // Remove cache entries older than 3 days
+        // Remove cache older than 3 days
         cacheRecords.RemoveAll(r => r.PostedAt < DateTime.UtcNow.AddDays(-3));
 
-        // Write session from Base64 secret
+        // Write Telegram session from base64 secret
         WriteSessionFromSecret();
 
         using var client = new WTelegram.Client(Config);
@@ -47,8 +48,8 @@ class Program
             }
 
             var channel = dialogs.chats.Values
-                            .OfType<Channel>()
-                            .FirstOrDefault(c => c.title.Contains(channelConfig.DisplayName, StringComparison.OrdinalIgnoreCase));
+                .OfType<Channel>()
+                .FirstOrDefault(c => c.title.Contains(channelConfig.DisplayName, StringComparison.OrdinalIgnoreCase));
 
             if (channel == null)
             {
@@ -88,9 +89,9 @@ class Program
                         if (ok)
                         {
                             cacheRecords.Add(new CacheRecord { Key = key, PostedAt = DateTime.UtcNow });
-                            SaveCache();
+                            SaveCache(); // immediately save new cache
                             Console.WriteLine($"Posted photo from {channelConfig.DisplayName}, msg.id={msg.id}");
-                            await Task.Delay(2000); // avoid rate limits
+                            await Task.Delay(2000); // avoid Discord rate limits
                         }
                     }
                     catch (Exception ex)
@@ -109,9 +110,8 @@ class Program
         var base64 = Environment.GetEnvironmentVariable("TELEGRAM_SESSION");
         if (string.IsNullOrEmpty(base64)) return;
 
-        var bytes = Convert.FromBase64String(base64);
-        Directory.CreateDirectory("Telegram"); // ensure folder exists
-        File.WriteAllBytes(CacheFile.Replace("processed_cache.json","session.session"), bytes);
+        Directory.CreateDirectory(CacheFolder);
+        File.WriteAllBytes(Path.Combine(CacheFolder, "session.session"), Convert.FromBase64String(base64));
     }
 
     static async Task<bool> PostToDiscord(byte[] fileData, string filename, string caption, string webhook)
@@ -160,8 +160,8 @@ class Program
     {
         try
         {
+            Directory.CreateDirectory(CacheFolder);
             var dto = new CacheDto { Records = cacheRecords };
-            Directory.CreateDirectory("Telegram");
             File.WriteAllText(CacheFile, JsonSerializer.Serialize(dto, new JsonSerializerOptions { WriteIndented = true }));
         }
         catch (Exception ex)
@@ -172,14 +172,4 @@ class Program
 
     class ChannelConfig { public string DisplayName; public string DiscordWebhook; }
     class CacheDto { public List<CacheRecord> Records { get; set; } = new(); }
-    class CacheRecord { public string Key { get; set; } = ""; public DateTime PostedAt { get; set; } }
-
-    static string Config(string what) => what switch
-    {
-        "api_id" => Environment.GetEnvironmentVariable("TELEGRAM_API_ID"),
-        "api_hash" => Environment.GetEnvironmentVariable("TELEGRAM_API_HASH"),
-        "phone_number" => Environment.GetEnvironmentVariable("TELEGRAM_PHONE"),
-        "session_pathname" => "Telegram/session.session",
-        _ => null
-    };
-}
+    class CacheRecord { public string Key { get
