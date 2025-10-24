@@ -4,7 +4,7 @@ on:
   schedule:
     - cron: '0 9 * * *'    # 10:00 AM UK
     - cron: '15 9 * * *'   # 10:15 AM UK
-  workflow_dispatch:
+  workflow_dispatch:        # allows manual trigger
 
 jobs:
   run-bot:
@@ -29,8 +29,8 @@ jobs:
         with:
           dotnet-version: 8.0.x
 
+      - name: Restore dependencies
+        run: dotnet restore ./Telegram/Telegram.csproj
+
       - name: Run Telegram → Discord Bot
-        run: |
-          echo "Running bot at $(date)"
-          dotnet restore
-          dotnet run --configuration Release
+        run: dotnet run --project ./Telegram/Telegram.csproj --configuration Release
