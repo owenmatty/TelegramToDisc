@@ -47,11 +47,11 @@ jobs:
           dotnet restore
           dotnet run --configuration Release --project Telegram/Telegram.csproj
 
-      # 5️⃣ Debug: verify cache file exists
+      # 5️⃣ Debug: verify cache file exists (PowerShell version)
       - name: Check cache file
         run: |
-          echo "Listing Telegram directory..."
-          ls -lah Telegram
+          Write-Host "Listing Telegram directory..."
+          Get-ChildItem Telegram | Select-Object Name, Length, LastWriteTime
 
       # 6️⃣ Save updated cache (so next run skips already-posted items)
       - name: Save processed cache
