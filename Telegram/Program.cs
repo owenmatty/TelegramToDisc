@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -13,15 +13,15 @@ class Program
     // List of private channels and their Discord webhooks
     static readonly List<ChannelConfig> Channels = new()
     {
-        new ChannelConfig { DisplayName = "FOOTBALL ON TV", DiscordWebhook = "https://discord.com/api/webhooks/1431014691471102075/87a65H33MdHUpb3DPx1FLkirtGdGGiSRmC4YfJ-d-0LaHSvPfLrIKRNjI8YDzr8unle3" },
-        new ChannelConfig { DisplayName = "US SPORT ON TV", DiscordWebhook = "https://discord.com/api/webhooks/1431018332785610885/AFk1IHRYGH1lmni4UuPeNpBlqnFj10P8_uxomsPdQ0BcWqdZRhIR2LFgJAvy17IQFyL5" },
-        new ChannelConfig { DisplayName = "COMBAT SPORT ON TV", DiscordWebhook = "https://discord.com/api/webhooks/1431178792071593994/e3dwuqC8uxZgs6_7vMQ_-o6EJAUjFTd3JDQFLmW84nhC-PN8vrPBInoIaIeqjMkvYpfV" },
-         new ChannelConfig { DisplayName = "OTHER SPORT ON TV", DiscordWebhook = "https://discord.com/api/webhooks/1431179108510994464/m06RbroqM-se3vODHLbTdwUV1-btbDKe2nsayqvP19a3C0UX4HKERIc0-05R8u2a0npc" }
+        new ChannelConfig { DisplayName = "FOOTBALL ON TV", DiscordWebhook = Environment.GetEnvironmentVariable("DISCORD_WEBHOOK_FOOTBALL") },
+        new ChannelConfig { DisplayName = "US SPORT ON TV", DiscordWebhook = Environment.GetEnvironmentVariable("DISCORD_WEBHOOK_BASKETBALL") },
+        new ChannelConfig { DisplayName = "COMBAT SPORT ON TV", DiscordWebhook = Environment.GetEnvironmentVariable("DISCORD_WEBHOOK_COMBAT") },
+        new ChannelConfig { DisplayName = "OTHER SPORT ON TV", DiscordWebhook = Environment.GetEnvironmentVariable("DISCORD_WEBHOOK_OTHER") }
         // Add more channels here
     };
 
     const string CacheFile = "processed_cache.json";
-    static List<CacheRecord> cacheRecords = new(); // store as key + timestamp
+    static List<CacheRecord> cacheRecords = new();
     static readonly HttpClient http = new();
 
     static async Task Main()
@@ -34,7 +34,6 @@ class Program
         using var client = new WTelegram.Client(Config);
         await client.LoginUserIfNeeded();
 
-        // Fetch all dialogs once
         var dialogs = await client.Messages_GetAllDialogs();
 
         foreach (var channelConfig in Channels)
@@ -62,30 +61,46 @@ class Program
             // Sort messages by oldest first
             var messagesOrdered = history.Messages
                 .OfType<Message>()
-                .OrderBy(m => m.id); // oldest first
+                .OrderBy(m => m.id);
+
+            // UK timezone for “today”
+            var ukZone = TimeZoneInfo.FindSystemTimeZoneById("GMT Standard Time");
+            var ukNow = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, ukZone);
 
             foreach (var msg in messagesOrdered)
             {
+                // Skip if message was not posted today in UK time
+                var msgUkDate = TimeZoneInfo.ConvertTimeFromUtc(msg.date, ukZone).Date;
+                if (msgUkDate != ukNow.Date)
+                    continue;
+
                 string key = $"{channelConfig.DisplayName}-{msg.id}";
                 if (cacheRecords.Any(r => r.Key == key)) continue;
 
                 if (msg.media is MessageMediaPhoto photoMedia && photoMedia.photo is Photo photo)
                 {
-                    using var ms = new MemoryStream();
-                    await client.DownloadFileAsync(photo, ms);
-                    byte[] fileBytes = ms.ToArray();
-
-                    string filename = $"{channelConfig.DisplayName}_{msg.id}.jpg";
-                    bool ok = await PostToDiscord(fileBytes, filename, msg.message, channelConfig.DiscordWebhook);
-
-                    if (ok)
+                    try
                     {
-                        cacheRecords.Add(new CacheRecord { Key = key, PostedAt = DateTime.UtcNow });
-                        SaveCache();
-                        Console.WriteLine($"Posted photo from {channelConfig.DisplayName}, msg.id={msg.id}");
+                        using var ms = new MemoryStream();
+                        await client.DownloadFileAsync(photo, ms);
+                        byte[] fileBytes = ms.ToArray();
 
-                        // Delay 2 seconds between posts to avoid rate limits
-                        await Task.Delay(2000);
+                        string filename = $"{channelConfig.DisplayName}_{msg.id}.jpg";
+                        bool ok = await PostToDiscord(fileBytes, filename, msg.message, channelConfig.DiscordWebhook);
+
+                        if (ok)
+                        {
+                            cacheRecords.Add(new CacheRecord { Key = key, PostedAt = DateTime.UtcNow });
+                            SaveCache();
+                            Console.WriteLine($"Posted photo from {channelConfig.DisplayName}, msg.id={msg.id}");
+
+                            // Delay 2 seconds between posts to avoid rate limits
+                            await Task.Delay(2000);
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine($"Failed to process msg.id={msg.id}: {ex.Message}");
                     }
                 }
             }
@@ -141,13 +156,13 @@ class Program
     class CacheDto { public List<CacheRecord> Records { get; set; } = new(); }
     class CacheRecord { public string Key { get; set; } = ""; public DateTime PostedAt { get; set; } }
 
-static string Config(string what)
+    static string Config(string what)
     {
         return what switch
         {
-            "api_id" => "23361435",
-            "api_hash" => "67fea5638553ea1d1a0c169944a36580",
-            "phone_number" => "+447850257756",
+            "api_id" => Environment.GetEnvironmentVariable("TELEGRAM_API_ID"),
+            "api_hash" => Environment.GetEnvironmentVariable("TELEGRAM_API_HASH"),
+            "phone_number" => Environment.GetEnvironmentVariable("TELEGRAM_PHONE"),
             "session_pathname" => "session.session",
             _ => null
         };
