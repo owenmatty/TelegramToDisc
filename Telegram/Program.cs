@@ -172,4 +172,14 @@ class Program
 
     class ChannelConfig { public string DisplayName; public string DiscordWebhook; }
     class CacheDto { public List<CacheRecord> Records { get; set; } = new(); }
-    class CacheRecord { public string Key { get
+    class CacheRecord { public string Key { get; set; } = ""; public DateTime PostedAt { get; set; } }
+
+    static string Config(string what) => what switch
+    {
+        "api_id" => Environment.GetEnvironmentVariable("TELEGRAM_API_ID"),
+        "api_hash" => Environment.GetEnvironmentVariable("TELEGRAM_API_HASH"),
+        "phone_number" => Environment.GetEnvironmentVariable("TELEGRAM_PHONE"),
+        "session_pathname" => Path.Combine(CacheFolder, "session.session"),
+        _ => null
+    };
+}
