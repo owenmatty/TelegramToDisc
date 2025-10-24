@@ -8,6 +8,7 @@ on:
 jobs:
   run-bot:
     runs-on: windows-latest
+
     env:
       TZ: Europe/London
       DISCORD_WEBHOOK_FOOTBALL: ${{ secrets.DISCORD_WEBHOOK_FOOTBALL }}
@@ -24,31 +25,38 @@ jobs:
       - name: Check out repository
         uses: actions/checkout@v4
 
-      # 2️⃣ Restore the processed cache so previously posted messages aren’t duplicated
+      # 2️⃣ Restore the processed cache (so we don’t repost the same items)
       - name: Restore processed cache
         uses: actions/cache@v4
         with:
           path: Telegram/processed_cache.json
-          key: processed-cache
+          key: processed-cache-${{ github.run_id }}
+          restore-keys: |
+            processed-cache-
 
-      # 3️⃣ Install .NET
+      # 3️⃣ Setup .NET 8
       - name: Setup .NET
         uses: actions/setup-dotnet@v4
         with:
           dotnet-version: 8.0.x
 
-      # 4️⃣ Build and run the bot
+      # 4️⃣ Run the bot
       - name: Run Telegram → Discord Bot
         run: |
           echo "Starting bot run at $(date)"
           dotnet restore
           dotnet run --configuration Release --project Telegram/Telegram.csproj
-        working-directory: .
 
-      # 5️⃣ Save updated cache file for next run
+      # 5️⃣ Debug: verify cache file exists
+      - name: Check cache file
+        run: |
+          echo "Listing Telegram directory..."
+          ls -lah Telegram
+
+      # 6️⃣ Save updated cache (so next run skips already-posted items)
       - name: Save processed cache
-        if: always()
+        if: success() && hashFiles('Telegram/processed_cache.json') != ''
         uses: actions/cache/save@v4
         with:
           path: Telegram/processed_cache.json
-          key: processed-cache
+          key: processed-cache-${{ github.run_id }}
