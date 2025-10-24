@@ -12,20 +12,21 @@ class Program
 {
     // List of private channels and their Discord webhooks
     static readonly List<ChannelConfig> Channels = new()
-{
-    new ChannelConfig { DisplayName = "FOOTBALL ON TV", DiscordWebhook = Environment.GetEnvironmentVariable("DISCORD_WEBHOOK_FOOTBALL") },
-    new ChannelConfig { DisplayName = "US SPORT ON TV", DiscordWebhook = Environment.GetEnvironmentVariable("DISCORD_WEBHOOK_US") },
-    new ChannelConfig { DisplayName = "COMBAT SPORT ON TV", DiscordWebhook = Environment.GetEnvironmentVariable("DISCORD_WEBHOOK_COMBAT") },
-    new ChannelConfig { DisplayName = "OTHER SPORT ON TV", DiscordWebhook = Environment.GetEnvironmentVariable("DISCORD_WEBHOOK_OTHER") }
-};
+    {
+        new ChannelConfig { DisplayName = "FOOTBALL ON TV", DiscordWebhook = Environment.GetEnvironmentVariable("DISCORD_WEBHOOK_FOOTBALL") },
+        new ChannelConfig { DisplayName = "US SPORT ON TV", DiscordWebhook = Environment.GetEnvironmentVariable("DISCORD_WEBHOOK_US") },
+        new ChannelConfig { DisplayName = "COMBAT SPORT ON TV", DiscordWebhook = Environment.GetEnvironmentVariable("DISCORD_WEBHOOK_COMBAT") },
+        new ChannelConfig { DisplayName = "OTHER SPORT ON TV", DiscordWebhook = Environment.GetEnvironmentVariable("DISCORD_WEBHOOK_OTHER") }
+    };
 
-
-    const string CacheFile = "processed_cache.json";
+    // Make sure path matches workflow cache
+    const string CacheFile = "Telegram/processed_cache.json";
     static List<CacheRecord> cacheRecords = new();
     static readonly HttpClient http = new();
 
     static async Task Main()
     {
+        EnsureCacheFileExists();
         LoadCache();
 
         // Remove cache entries older than 3 days
@@ -47,7 +48,6 @@ class Program
                 continue;
             }
 
-            // Find channel by display name
             var channel = dialogs.chats.Values
                             .OfType<Channel>()
                             .FirstOrDefault(c => c.title.Contains(channelConfig.DisplayName, StringComparison.OrdinalIgnoreCase));
@@ -61,18 +61,15 @@ class Program
             var inputPeer = channel.ToInputPeer();
             var history = await client.Messages_GetHistory(inputPeer, limit: 100);
 
-            // Sort messages by oldest first
             var messagesOrdered = history.Messages
                 .OfType<Message>()
                 .OrderBy(m => m.id);
 
-            // UK timezone for “today”
             var ukZone = TimeZoneInfo.FindSystemTimeZoneById("GMT Standard Time");
             var ukNow = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, ukZone);
 
             foreach (var msg in messagesOrdered)
             {
-                // Skip if message was not posted today in UK time
                 var msgUkDate = TimeZoneInfo.ConvertTimeFromUtc(msg.date, ukZone).Date;
                 if (msgUkDate != ukNow.Date) continue;
 
@@ -95,9 +92,7 @@ class Program
                             cacheRecords.Add(new CacheRecord { Key = key, PostedAt = DateTime.UtcNow });
                             SaveCache();
                             Console.WriteLine($"Posted photo from {channelConfig.DisplayName}, msg.id={msg.id}");
-
-                            // Delay 2 seconds between posts to avoid rate limits
-                            await Task.Delay(2000);
+                            await Task.Delay(2000); // avoid rate limits
                         }
                     }
                     catch (Exception ex)
@@ -109,6 +104,17 @@ class Program
         }
 
         Console.WriteLine("Done.");
+    }
+
+    static void EnsureCacheFileExists()
+    {
+        var dir = Path.GetDirectoryName(CacheFile);
+        if (!Directory.Exists(dir)) Directory.CreateDirectory(dir);
+        if (!File.Exists(CacheFile))
+        {
+            var emptyCache = new CacheDto { Records = new List<CacheRecord>() };
+            File.WriteAllText(CacheFile, JsonSerializer.Serialize(emptyCache, new JsonSerializerOptions { WriteIndented = true }));
+        }
     }
 
     static void WriteSessionFromSecret()
@@ -141,7 +147,6 @@ class Program
 
     static void LoadCache()
     {
-        if (!File.Exists(CacheFile)) return;
         try
         {
             var json = File.ReadAllText(CacheFile);
@@ -166,9 +171,7 @@ class Program
     class CacheDto { public List<CacheRecord> Records { get; set; } = new(); }
     class CacheRecord { public string Key { get; set; } = ""; public DateTime PostedAt { get; set; } }
 
-static string Config(string what)
-{
-    return what switch
+    static string Config(string what) => what switch
     {
         "api_id" => Environment.GetEnvironmentVariable("TELEGRAM_API_ID"),
         "api_hash" => Environment.GetEnvironmentVariable("TELEGRAM_API_HASH"),
@@ -177,5 +180,3 @@ static string Config(string what)
         _ => null
     };
 }
-}
-
