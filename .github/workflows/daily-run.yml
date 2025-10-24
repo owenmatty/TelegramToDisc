@@ -2,8 +2,11 @@ name: Telegram to Discord Bot
 
 on:
   workflow_dispatch:
-#  schedule:
-#    - cron: "0 * * * *"
+  # schedule:
+  #   - cron: "0 * * * *"  # every hour (uncomment later when stable)
+
+permissions:
+  contents: write  # ✅ allows the workflow to push changes (for cache updates)
 
 jobs:
   run-bot:
@@ -11,35 +14,57 @@ jobs:
 
     env:
       TZ: Europe/London
-#      DISCORD_WEBHOOK_FOOTBALL: ${{ secrets.DISCORD_WEBHOOK_FOOTBALL }}
-  #    DISCORD_WEBHOOK_US: ${{ secrets.DISCORD_WEBHOOK_US }}
+    #  DISCORD_WEBHOOK_FOOTBALL: ${{ secrets.DISCORD_WEBHOOK_FOOTBALL }}
+     # DISCORD_WEBHOOK_US: ${{ secrets.DISCORD_WEBHOOK_US }}
       DISCORD_WEBHOOK_COMBAT: ${{ secrets.DISCORD_WEBHOOK_COMBAT }}
-  #    DISCORD_WEBHOOK_OTHER: ${{ secrets.DISCORD_WEBHOOK_OTHER }}
+     # DISCORD_WEBHOOK_OTHER: ${{ secrets.DISCORD_WEBHOOK_OTHER }}
       TELEGRAM_API_ID: ${{ secrets.TELEGRAM_API_ID }}
       TELEGRAM_API_HASH: ${{ secrets.TELEGRAM_API_HASH }}
       TELEGRAM_PHONE: ${{ secrets.TELEGRAM_PHONE }}
       TELEGRAM_SESSION: ${{ secrets.TELEGRAM_SESSION }}
 
     steps:
+      # 1️⃣ Checkout repository with full history (needed for commits)
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
-          persist-credentials: true
+          fetch-depth: 0   # ensure commit history available for pushes
 
+      # 2️⃣ Setup .NET 8
       - name: Setup .NET
         uses: actions/setup-dotnet@v4
         with:
           dotnet-version: 8.0.x
 
+      # 3️⃣ Ensure processed_cache.json exists
+      - name: Ensure processed_cache.json exists
+        run: |
+          mkdir -Force Telegram
+          if (-not (Test-Path Telegram/processed_cache.json)) {
+            '{}' | Out-File -Encoding utf8 Telegram/processed_cache.json
+            echo "✅ Created new Telegram/processed_cache.json"
+          } else {
+            echo "ℹ️ Cache file already exists"
+          }
+
+      # 4️⃣ Run the bot
       - name: Run Telegram → Discord Bot
         run: |
+          echo "🚀 Starting bot run at $(Get-Date -Format 'u')"
           dotnet restore
           dotnet run --configuration Release --project Telegram/Telegram.csproj
 
-      - name: Commit updated cache
+      # 5️⃣ Commit and push updated cache back to repo
+      - name: Commit & Push updated cache
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add Telegram/processed_cache.json
-          git diff --cached --quiet || git commit -m "Update processed cache [skip ci]"
-          git push
+
+          if git diff --cached --quiet; then
+            echo "ℹ️ No cache changes to commit."
+          else
+            git commit -m "Update processed cache [skip ci]"
+            git push origin HEAD:master
+            echo "✅ Cache updated and pushed."
+          fi
