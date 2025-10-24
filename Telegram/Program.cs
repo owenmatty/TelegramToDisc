@@ -10,7 +10,6 @@ using WTelegram;
 
 class Program
 {
-    // Telegram channels & Discord webhooks
     static readonly List<ChannelConfig> Channels = new()
     {
         new ChannelConfig { DisplayName = "FOOTBALL ON TV", DiscordWebhook = Environment.GetEnvironmentVariable("DISCORD_WEBHOOK_FOOTBALL") },
@@ -19,7 +18,6 @@ class Program
         new ChannelConfig { DisplayName = "OTHER SPORT ON TV", DiscordWebhook = Environment.GetEnvironmentVariable("DISCORD_WEBHOOK_OTHER") }
     };
 
-    const string CacheFolder = "Telegram";
     const string CacheFile = "Telegram/processed_cache.json";
     static List<CacheRecord> cacheRecords = new();
     static readonly HttpClient http = new();
@@ -28,10 +26,10 @@ class Program
     {
         LoadCache();
 
-        // Remove cache older than 3 days
+        // Remove cache entries older than 3 days
         cacheRecords.RemoveAll(r => r.PostedAt < DateTime.UtcNow.AddDays(-3));
 
-        // Write Telegram session from base64 secret
+        // Write session from Base64 secret
         WriteSessionFromSecret();
 
         using var client = new WTelegram.Client(Config);
@@ -41,21 +39,12 @@ class Program
 
         foreach (var channelConfig in Channels)
         {
-            if (string.IsNullOrEmpty(channelConfig.DiscordWebhook))
-            {
-                Console.WriteLine($"Skipping {channelConfig.DisplayName}: no webhook set");
-                continue;
-            }
+            if (string.IsNullOrEmpty(channelConfig.DiscordWebhook)) continue;
 
             var channel = dialogs.chats.Values
                 .OfType<Channel>()
                 .FirstOrDefault(c => c.title.Contains(channelConfig.DisplayName, StringComparison.OrdinalIgnoreCase));
-
-            if (channel == null)
-            {
-                Console.WriteLine($"Channel '{channelConfig.DisplayName}' not found!");
-                continue;
-            }
+            if (channel == null) continue;
 
             var inputPeer = channel.ToInputPeer();
             var history = await client.Messages_GetHistory(inputPeer, limit: 100);
@@ -89,9 +78,9 @@ class Program
                         if (ok)
                         {
                             cacheRecords.Add(new CacheRecord { Key = key, PostedAt = DateTime.UtcNow });
-                            SaveCache(); // immediately save new cache
+                            SaveCache();
                             Console.WriteLine($"Posted photo from {channelConfig.DisplayName}, msg.id={msg.id}");
-                            await Task.Delay(2000); // avoid Discord rate limits
+                            await Task.Delay(2000); // avoid rate limits
                         }
                     }
                     catch (Exception ex)
@@ -110,8 +99,8 @@ class Program
         var base64 = Environment.GetEnvironmentVariable("TELEGRAM_SESSION");
         if (string.IsNullOrEmpty(base64)) return;
 
-        Directory.CreateDirectory(CacheFolder);
-        File.WriteAllBytes(Path.Combine(CacheFolder, "session.session"), Convert.FromBase64String(base64));
+        Directory.CreateDirectory("Telegram");
+        File.WriteAllBytes("Telegram/session.session", Convert.FromBase64String(base64));
     }
 
     static async Task<bool> PostToDiscord(byte[] fileData, string filename, string caption, string webhook)
@@ -136,23 +125,26 @@ class Program
 
     static void LoadCache()
     {
-        if (!File.Exists(CacheFile))
-        {
-            Console.WriteLine("Cache file not found, starting fresh.");
-            return;
-        }
-
         try
         {
+            Directory.CreateDirectory("Telegram");
+            if (!File.Exists(CacheFile))
+            {
+                Console.WriteLine("Cache file not found, starting fresh.");
+                cacheRecords = new();
+                SaveCache(); // create file immediately
+                return;
+            }
+
             var json = File.ReadAllText(CacheFile);
             var dto = JsonSerializer.Deserialize<CacheDto>(json);
-            if (dto?.Records != null)
-                cacheRecords = dto.Records;
+            cacheRecords = dto?.Records ?? new();
             Console.WriteLine($"Loaded {cacheRecords.Count} cached records.");
         }
         catch (Exception ex)
         {
             Console.WriteLine($"Failed to load cache: {ex.Message}");
+            cacheRecords = new();
         }
     }
 
@@ -160,9 +152,8 @@ class Program
     {
         try
         {
-            Directory.CreateDirectory(CacheFolder);
-            var dto = new CacheDto { Records = cacheRecords };
-            File.WriteAllText(CacheFile, JsonSerializer.Serialize(dto, new JsonSerializerOptions { WriteIndented = true }));
+            Directory.CreateDirectory("Telegram");
+            File.WriteAllText(CacheFile, JsonSerializer.Serialize(new CacheDto { Records = cacheRecords }, new JsonSerializerOptions { WriteIndented = true }));
         }
         catch (Exception ex)
         {
@@ -179,7 +170,7 @@ class Program
         "api_id" => Environment.GetEnvironmentVariable("TELEGRAM_API_ID"),
         "api_hash" => Environment.GetEnvironmentVariable("TELEGRAM_API_HASH"),
         "phone_number" => Environment.GetEnvironmentVariable("TELEGRAM_PHONE"),
-        "session_pathname" => Path.Combine(CacheFolder, "session.session"),
+        "session_pathname" => "Telegram/session.session",
         _ => null
     };
 }
