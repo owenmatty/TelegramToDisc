@@ -1,9 +1,9 @@
 name: Twice Daily Telegram → Discord Poster (UK Time)
 
-# on:
-#  schedule:
- #   - cron: '0 9 * * *'    # 10:00 AM UK
- #   - cron: '15 9 * * *'   # 10:15 AM UK
+on:
+  schedule:
+    - cron: '0 9 * * *'    # 10:00 AM UK
+    - cron: '15 9 * * *'   # 10:15 AM UK
   workflow_dispatch:
 
 jobs:
@@ -11,7 +11,7 @@ jobs:
     runs-on: windows-latest
 
     env:
-      TZ: Europe/London   # Ensures schedule matches UK local time
+      TZ: Europe/London
       DISCORD_WEBHOOK_FOOTBALL: ${{ secrets.DISCORD_WEBHOOK_FOOTBALL }}
       DISCORD_WEBHOOK_COMBAT: ${{ secrets.DISCORD_WEBHOOK_COMBAT }}
       DISCORD_WEBHOOK_OTHER: ${{ secrets.DISCORD_WEBHOOK_OTHER }}
