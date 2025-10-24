@@ -8,53 +8,42 @@ on:
 jobs:
   run-bot:
     runs-on: windows-latest
-
     env:
       TZ: Europe/London
-      DISCORD_WEBHOOK_FOOTBALL: ${{ secrets.DISCORD_WEBHOOK_FOOTBALL }}
+   #   DISCORD_WEBHOOK_FOOTBALL: ${{ secrets.DISCORD_WEBHOOK_FOOTBALL }}
    #   DISCORD_WEBHOOK_US: ${{ secrets.DISCORD_WEBHOOK_US }}
-   #   DISCORD_WEBHOOK_COMBAT: ${{ secrets.DISCORD_WEBHOOK_COMBAT }}
-   #   DISCORD_WEBHOOK_OTHER: ${{ secrets.DISCORD_WEBHOOK_OTHER }}
+      DISCORD_WEBHOOK_COMBAT: ${{ secrets.DISCORD_WEBHOOK_COMBAT }}
+  #    DISCORD_WEBHOOK_OTHER: ${{ secrets.DISCORD_WEBHOOK_OTHER }}
       TELEGRAM_API_ID: ${{ secrets.TELEGRAM_API_ID }}
       TELEGRAM_API_HASH: ${{ secrets.TELEGRAM_API_HASH }}
       TELEGRAM_PHONE: ${{ secrets.TELEGRAM_PHONE }}
       TELEGRAM_SESSION: ${{ secrets.TELEGRAM_SESSION }}
 
     steps:
-      # 1️⃣ Checkout repo
-      - name: Check out repository
+      - name: Checkout repository
         uses: actions/checkout@v4
 
-      # 2️⃣ Restore processed cache (so we don’t repost)
       - name: Restore processed cache
         uses: actions/cache@v4
         with:
           path: Telegram/processed_cache.json
           key: processed-cache
-          restore-keys: |
-            processed-cache
+          restore-keys: processed-cache
 
-      # 3️⃣ Setup .NET
-      - name: Setup .NET 8
+      - name: Setup .NET
         uses: actions/setup-dotnet@v4
         with:
           dotnet-version: 8.0.x
 
-      # 4️⃣ Ensure processed_cache.json exists (required for caching)
-      - name: Ensure cache file exists
-        run: |
-          if (-Not (Test-Path Telegram/processed_cache.json)) { New-Item -ItemType File Telegram/processed_cache.json }
-
-      # 5️⃣ Run the bot
       - name: Run Telegram → Discord Bot
         run: |
-          echo "Starting bot run at $(Get-Date)"
+          echo "Starting bot run at $(date)"
           dotnet restore
           dotnet run --configuration Release --project Telegram/Telegram.csproj
 
-      # 6️⃣ Save updated cache for next run
       - name: Save processed cache
-        uses: actions/cache@v4
+        if: always()
+        uses: actions/cache/save@v4
         with:
           path: Telegram/processed_cache.json
           key: processed-cache
