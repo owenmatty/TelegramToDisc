@@ -1,150 +1,6 @@
 {
   "Records": [
     {
-      "Key": "FOOTBALL ON TV-47638",
-      "PostedAt": "2026-01-05T09:29:31.5853188Z"
-    },
-    {
-      "Key": "FOOTBALL ON TV-47639",
-      "PostedAt": "2026-01-05T09:29:46.2207826Z"
-    },
-    {
-      "Key": "FOOTBALL ON TV-47640",
-      "PostedAt": "2026-01-05T09:30:02.352703Z"
-    },
-    {
-      "Key": "FOOTBALL ON TV-47641",
-      "PostedAt": "2026-01-05T09:30:16.3765051Z"
-    },
-    {
-      "Key": "FOOTBALL ON TV-47642",
-      "PostedAt": "2026-01-05T09:30:33.668634Z"
-    },
-    {
-      "Key": "FOOTBALL ON TV-47643",
-      "PostedAt": "2026-01-05T09:30:46.4096515Z"
-    },
-    {
-      "Key": "FOOTBALL ON TV-47644",
-      "PostedAt": "2026-01-05T09:30:59.8665275Z"
-    },
-    {
-      "Key": "FOOTBALL ON TV-47645",
-      "PostedAt": "2026-01-05T09:31:13.8568801Z"
-    },
-    {
-      "Key": "COMBAT SPORT ON TV-13265",
-      "PostedAt": "2026-01-05T09:31:30.0901452Z"
-    },
-    {
-      "Key": "COMBAT SPORT ON TV-13266",
-      "PostedAt": "2026-01-05T09:31:46.3242426Z"
-    },
-    {
-      "Key": "COMBAT SPORT ON TV-13267",
-      "PostedAt": "2026-01-05T09:32:04.3825458Z"
-    },
-    {
-      "Key": "OTHER SPORT ON TV-45415",
-      "PostedAt": "2026-01-05T09:32:14.9111678Z"
-    },
-    {
-      "Key": "OTHER SPORT ON TV-45416",
-      "PostedAt": "2026-01-05T09:32:29.1647399Z"
-    },
-    {
-      "Key": "OTHER SPORT ON TV-45417",
-      "PostedAt": "2026-01-05T09:32:44.2000275Z"
-    },
-    {
-      "Key": "OTHER SPORT ON TV-45418",
-      "PostedAt": "2026-01-05T09:32:58.8711116Z"
-    },
-    {
-      "Key": "OTHER SPORT ON TV-45419",
-      "PostedAt": "2026-01-05T09:33:17.7604677Z"
-    },
-    {
-      "Key": "OTHER SPORT ON TV-45420",
-      "PostedAt": "2026-01-05T09:33:36.2317961Z"
-    },
-    {
-      "Key": "OTHER SPORT ON TV-45421",
-      "PostedAt": "2026-01-05T09:33:58.0827477Z"
-    },
-    {
-      "Key": "OTHER SPORT ON TV-45422",
-      "PostedAt": "2026-01-05T09:34:08.7025554Z"
-    },
-    {
-      "Key": "OTHER SPORT ON TV-45423",
-      "PostedAt": "2026-01-05T09:34:20.7337151Z"
-    },
-    {
-      "Key": "OTHER SPORT ON TV-45424",
-      "PostedAt": "2026-01-05T09:34:35.0576134Z"
-    },
-    {
-      "Key": "OTHER SPORT ON TV-45425",
-      "PostedAt": "2026-01-05T09:34:50.2804649Z"
-    },
-    {
-      "Key": "OTHER SPORT ON TV-45426",
-      "PostedAt": "2026-01-05T09:35:00.459428Z"
-    },
-    {
-      "Key": "OTHER SPORT ON TV-45427",
-      "PostedAt": "2026-01-05T09:35:21.4919914Z"
-    },
-    {
-      "Key": "OTHER SPORT ON TV-45428",
-      "PostedAt": "2026-01-05T09:35:35.8398374Z"
-    },
-    {
-      "Key": "OTHER SPORT ON TV-45429",
-      "PostedAt": "2026-01-05T09:35:52.4105728Z"
-    },
-    {
-      "Key": "OTHER SPORT ON TV-45430",
-      "PostedAt": "2026-01-05T09:36:07.649587Z"
-    },
-    {
-      "Key": "OTHER SPORT ON TV-45431",
-      "PostedAt": "2026-01-05T09:36:19.8512346Z"
-    },
-    {
-      "Key": "OTHER SPORT ON TV-45432",
-      "PostedAt": "2026-01-05T09:36:42.1244106Z"
-    },
-    {
-      "Key": "OTHER SPORT ON TV-45433",
-      "PostedAt": "2026-01-05T09:36:51.4610644Z"
-    },
-    {
-      "Key": "OTHER SPORT ON TV-45435",
-      "PostedAt": "2026-01-05T09:37:36.0451815Z"
-    },
-    {
-      "Key": "OTHER SPORT ON TV-45436",
-      "PostedAt": "2026-01-05T09:37:50.401372Z"
-    },
-    {
-      "Key": "OTHER SPORT ON TV-45437",
-      "PostedAt": "2026-01-05T09:38:04.3774539Z"
-    },
-    {
-      "Key": "OTHER SPORT ON TV-45438",
-      "PostedAt": "2026-01-05T09:38:13.803507Z"
-    },
-    {
-      "Key": "OTHER SPORT ON TV-45439",
-      "PostedAt": "2026-01-05T09:38:23.6231645Z"
-    },
-    {
-      "Key": "OTHER SPORT ON TV-45440",
-      "PostedAt": "2026-01-05T09:38:40.2775982Z"
-    },
-    {
       "Key": "OTHER SPORT ON TV-45434",
       "PostedAt": "2026-01-05T10:21:39.1069943Z"
     },
@@ -835,6 +691,10 @@
     {
       "Key": "OTHER SPORT ON TV-45525",
       "PostedAt": "2026-01-08T09:35:20.2421528Z"
+    },
+    {
+      "Key": "OTHER SPORT ON TV-45508",
+      "PostedAt": "2026-01-08T10:21:13.3068808Z"
     }
   ]
 }
