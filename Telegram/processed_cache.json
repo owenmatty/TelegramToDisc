@@ -1,10 +1,6 @@
 {
   "Records": [
     {
-      "Key": "OTHER SPORT ON TV-45508",
-      "PostedAt": "2026-01-08T10:21:13.3068808Z"
-    },
-    {
       "Key": "US SPORT ON TV-50052",
       "PostedAt": "2026-01-08T17:24:49.2613303Z"
     },
@@ -1175,6 +1171,10 @@
     {
       "Key": "RUGBY ON TV-15094",
       "PostedAt": "2026-01-11T10:38:16.1071829Z"
+    },
+    {
+      "Key": "RUGBY ON TV-15085",
+      "PostedAt": "2026-01-11T11:14:59.6243478Z"
     }
   ]
 }
