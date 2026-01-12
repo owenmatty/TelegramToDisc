@@ -1,82 +1,6 @@
 {
   "Records": [
     {
-      "Key": "US SPORT ON TV-50052",
-      "PostedAt": "2026-01-08T17:24:49.2613303Z"
-    },
-    {
-      "Key": "US SPORT ON TV-50053",
-      "PostedAt": "2026-01-08T17:25:08.176325Z"
-    },
-    {
-      "Key": "US SPORT ON TV-50054",
-      "PostedAt": "2026-01-08T17:25:24.5143205Z"
-    },
-    {
-      "Key": "US SPORT ON TV-50055",
-      "PostedAt": "2026-01-08T17:25:36.6970137Z"
-    },
-    {
-      "Key": "US SPORT ON TV-50056",
-      "PostedAt": "2026-01-08T17:25:57.0686713Z"
-    },
-    {
-      "Key": "US SPORT ON TV-50057",
-      "PostedAt": "2026-01-08T17:26:12.0766337Z"
-    },
-    {
-      "Key": "US SPORT ON TV-50058",
-      "PostedAt": "2026-01-08T17:26:25.5879873Z"
-    },
-    {
-      "Key": "US SPORT ON TV-50060",
-      "PostedAt": "2026-01-08T17:27:10.7246073Z"
-    },
-    {
-      "Key": "US SPORT ON TV-50061",
-      "PostedAt": "2026-01-08T17:27:21.7658356Z"
-    },
-    {
-      "Key": "US SPORT ON TV-50062",
-      "PostedAt": "2026-01-08T17:27:31.4909286Z"
-    },
-    {
-      "Key": "US SPORT ON TV-50063",
-      "PostedAt": "2026-01-08T17:27:46.3660074Z"
-    },
-    {
-      "Key": "US SPORT ON TV-50064",
-      "PostedAt": "2026-01-08T17:28:01.1041537Z"
-    },
-    {
-      "Key": "US SPORT ON TV-50065",
-      "PostedAt": "2026-01-08T17:28:10.3904022Z"
-    },
-    {
-      "Key": "US SPORT ON TV-50066",
-      "PostedAt": "2026-01-08T17:28:26.7048466Z"
-    },
-    {
-      "Key": "US SPORT ON TV-50067",
-      "PostedAt": "2026-01-08T17:28:40.2145226Z"
-    },
-    {
-      "Key": "US SPORT ON TV-50068",
-      "PostedAt": "2026-01-08T17:28:55.602323Z"
-    },
-    {
-      "Key": "US SPORT ON TV-50069",
-      "PostedAt": "2026-01-08T17:29:08.3986861Z"
-    },
-    {
-      "Key": "US SPORT ON TV-50070",
-      "PostedAt": "2026-01-08T17:29:26.6962069Z"
-    },
-    {
-      "Key": "US SPORT ON TV-50059",
-      "PostedAt": "2026-01-08T18:23:42.6819288Z"
-    },
-    {
       "Key": "FOOTBALL ON TV-47696",
       "PostedAt": "2026-01-09T10:19:43.6346971Z"
     },
@@ -1263,6 +1187,42 @@
     {
       "Key": "US SPORT ON TV-50139",
       "PostedAt": "2026-01-11T15:22:13.508707Z"
+    },
+    {
+      "Key": "FOOTBALL ON TV-47824",
+      "PostedAt": "2026-01-12T09:29:21.5149019Z"
+    },
+    {
+      "Key": "FOOTBALL ON TV-47825",
+      "PostedAt": "2026-01-12T09:29:33.8528345Z"
+    },
+    {
+      "Key": "FOOTBALL ON TV-47826",
+      "PostedAt": "2026-01-12T09:29:44.2538876Z"
+    },
+    {
+      "Key": "FOOTBALL ON TV-47827",
+      "PostedAt": "2026-01-12T09:29:58.352872Z"
+    },
+    {
+      "Key": "FOOTBALL ON TV-47828",
+      "PostedAt": "2026-01-12T09:30:09.735455Z"
+    },
+    {
+      "Key": "FOOTBALL ON TV-47829",
+      "PostedAt": "2026-01-12T09:30:23.7366602Z"
+    },
+    {
+      "Key": "FOOTBALL ON TV-47830",
+      "PostedAt": "2026-01-12T09:30:35.8255011Z"
+    },
+    {
+      "Key": "FOOTBALL ON TV-47831",
+      "PostedAt": "2026-01-12T09:30:45.9830086Z"
+    },
+    {
+      "Key": "FOOTBALL ON TV-47832",
+      "PostedAt": "2026-01-12T09:31:08.3848661Z"
     }
   ]
 }
