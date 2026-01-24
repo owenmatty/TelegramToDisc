@@ -1,70 +1,6 @@
 {
   "Records": [
     {
-      "Key": "US SPORT ON TV-50324",
-      "PostedAt": "2026-01-21T14:27:53.5791826Z"
-    },
-    {
-      "Key": "US SPORT ON TV-50325",
-      "PostedAt": "2026-01-21T14:28:08.9781221Z"
-    },
-    {
-      "Key": "US SPORT ON TV-50326",
-      "PostedAt": "2026-01-21T14:28:20.9980762Z"
-    },
-    {
-      "Key": "US SPORT ON TV-50327",
-      "PostedAt": "2026-01-21T14:28:34.8622918Z"
-    },
-    {
-      "Key": "US SPORT ON TV-50328",
-      "PostedAt": "2026-01-21T14:28:47.4373017Z"
-    },
-    {
-      "Key": "US SPORT ON TV-50329",
-      "PostedAt": "2026-01-21T14:28:59.7578323Z"
-    },
-    {
-      "Key": "US SPORT ON TV-50330",
-      "PostedAt": "2026-01-21T14:29:12.8107142Z"
-    },
-    {
-      "Key": "US SPORT ON TV-50331",
-      "PostedAt": "2026-01-21T14:29:25.1375394Z"
-    },
-    {
-      "Key": "US SPORT ON TV-50332",
-      "PostedAt": "2026-01-21T14:29:36.6739835Z"
-    },
-    {
-      "Key": "US SPORT ON TV-50333",
-      "PostedAt": "2026-01-21T14:29:50.2563895Z"
-    },
-    {
-      "Key": "US SPORT ON TV-50334",
-      "PostedAt": "2026-01-21T14:30:04.6028831Z"
-    },
-    {
-      "Key": "US SPORT ON TV-50335",
-      "PostedAt": "2026-01-21T14:30:18.0013023Z"
-    },
-    {
-      "Key": "US SPORT ON TV-50336",
-      "PostedAt": "2026-01-21T14:30:28.013126Z"
-    },
-    {
-      "Key": "US SPORT ON TV-50337",
-      "PostedAt": "2026-01-21T14:30:49.4639272Z"
-    },
-    {
-      "Key": "US SPORT ON TV-50338",
-      "PostedAt": "2026-01-21T14:31:03.6360392Z"
-    },
-    {
-      "Key": "US SPORT ON TV-50339",
-      "PostedAt": "2026-01-21T14:31:20.7133901Z"
-    },
-    {
       "Key": "FOOTBALL ON TV-48080",
       "PostedAt": "2026-01-22T09:30:10.1379828Z"
     },
@@ -1139,6 +1075,14 @@
     {
       "Key": "RUGBY ON TV-15177",
       "PostedAt": "2026-01-24T10:43:09.743747Z"
+    },
+    {
+      "Key": "US SPORT ON TV-50385",
+      "PostedAt": "2026-01-24T16:20:55.8917996Z"
+    },
+    {
+      "Key": "US SPORT ON TV-50386",
+      "PostedAt": "2026-01-24T16:21:11.966005Z"
     }
   ]
 }
