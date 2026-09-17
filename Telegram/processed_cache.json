@@ -1,32 +1,16 @@
 {
   "Records": [
     {
-      "Key": "FOOTBALL ON TV-54015",
-      "PostedAt": "2026-09-13T13:37:04.1463736Z"
-    },
-    {
-      "Key": "US SPORT ON TV-56008",
-      "PostedAt": "2026-09-13T13:37:09.2269266Z"
-    },
-    {
-      "Key": "COMBAT SPORT ON TV-14792",
-      "PostedAt": "2026-09-13T13:37:14.4155317Z"
-    },
-    {
-      "Key": "OTHER SPORT ON TV-52156",
-      "PostedAt": "2026-09-13T13:37:20.6031295Z"
-    },
-    {
-      "Key": "RUGBY ON TV-17445",
-      "PostedAt": "2026-09-13T13:37:27.8428176Z"
-    },
-    {
       "Key": "COMBAT SPORT ON TV-14793",
       "PostedAt": "2026-09-14T20:08:16.6155386Z"
     },
     {
       "Key": "COMBAT SPORT ON TV-14794",
       "PostedAt": "2026-09-15T14:07:54.6397467Z"
+    },
+    {
+      "Key": "US SPORT ON TV-56009",
+      "PostedAt": "2026-09-17T14:05:45.4868482Z"
     }
   ]
 }
