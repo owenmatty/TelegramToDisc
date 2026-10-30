@@ -3,7 +3,7 @@ name: Telegram to Discord Bot
 on:
   workflow_dispatch:
   schedule:
-    - cron: "0 9-21 * * *"  # Every hour between 9:00 and 21:00 UTC
+    - cron: "23 9-21 * * *"  # Every hour between 9:00 and 21:00 UTC
 
 
 permissions:
