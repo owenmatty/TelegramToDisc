@@ -1,174 +1,6 @@
 {
   "Records": [
     {
-      "Key": "FOOTBALL ON TV-55674",
-      "PostedAt": "2026-11-09T11:35:13.8619318Z"
-    },
-    {
-      "Key": "FOOTBALL ON TV-55675",
-      "PostedAt": "2026-11-09T11:35:18.3298811Z"
-    },
-    {
-      "Key": "FOOTBALL ON TV-55676",
-      "PostedAt": "2026-11-09T11:35:22.4783691Z"
-    },
-    {
-      "Key": "US SPORT ON TV-57421",
-      "PostedAt": "2026-11-09T11:35:27.2235372Z"
-    },
-    {
-      "Key": "US SPORT ON TV-57422",
-      "PostedAt": "2026-11-09T11:35:31.9205675Z"
-    },
-    {
-      "Key": "US SPORT ON TV-57423",
-      "PostedAt": "2026-11-09T11:35:37.4819334Z"
-    },
-    {
-      "Key": "US SPORT ON TV-57424",
-      "PostedAt": "2026-11-09T11:35:41.8981539Z"
-    },
-    {
-      "Key": "US SPORT ON TV-57425",
-      "PostedAt": "2026-11-09T11:35:45.8264333Z"
-    },
-    {
-      "Key": "US SPORT ON TV-57426",
-      "PostedAt": "2026-11-09T11:35:52.5765014Z"
-    },
-    {
-      "Key": "US SPORT ON TV-57427",
-      "PostedAt": "2026-11-09T11:35:56.804115Z"
-    },
-    {
-      "Key": "US SPORT ON TV-57428",
-      "PostedAt": "2026-11-09T11:36:00.7022962Z"
-    },
-    {
-      "Key": "US SPORT ON TV-57429",
-      "PostedAt": "2026-11-09T11:36:05.6664795Z"
-    },
-    {
-      "Key": "US SPORT ON TV-57430",
-      "PostedAt": "2026-11-09T11:36:10.0118072Z"
-    },
-    {
-      "Key": "US SPORT ON TV-57431",
-      "PostedAt": "2026-11-09T11:36:15.5415451Z"
-    },
-    {
-      "Key": "US SPORT ON TV-57432",
-      "PostedAt": "2026-11-09T11:36:19.2594225Z"
-    },
-    {
-      "Key": "US SPORT ON TV-57433",
-      "PostedAt": "2026-11-09T11:36:28.0842837Z"
-    },
-    {
-      "Key": "US SPORT ON TV-57434",
-      "PostedAt": "2026-11-09T11:36:33.3259538Z"
-    },
-    {
-      "Key": "US SPORT ON TV-57435",
-      "PostedAt": "2026-11-09T11:36:37.2423106Z"
-    },
-    {
-      "Key": "US SPORT ON TV-57436",
-      "PostedAt": "2026-11-09T11:36:41.3303686Z"
-    },
-    {
-      "Key": "COMBAT SPORT ON TV-15099",
-      "PostedAt": "2026-11-09T11:36:47.8500256Z"
-    },
-    {
-      "Key": "COMBAT SPORT ON TV-15100",
-      "PostedAt": "2026-11-09T11:36:54.0619245Z"
-    },
-    {
-      "Key": "COMBAT SPORT ON TV-15101",
-      "PostedAt": "2026-11-09T11:36:57.9949414Z"
-    },
-    {
-      "Key": "OTHER SPORT ON TV-53329",
-      "PostedAt": "2026-11-09T11:37:02.1133498Z"
-    },
-    {
-      "Key": "OTHER SPORT ON TV-53330",
-      "PostedAt": "2026-11-09T11:37:07.0728319Z"
-    },
-    {
-      "Key": "OTHER SPORT ON TV-53331",
-      "PostedAt": "2026-11-09T11:37:11.98404Z"
-    },
-    {
-      "Key": "OTHER SPORT ON TV-53332",
-      "PostedAt": "2026-11-09T11:37:16.2343931Z"
-    },
-    {
-      "Key": "OTHER SPORT ON TV-53333",
-      "PostedAt": "2026-11-09T11:37:21.1758767Z"
-    },
-    {
-      "Key": "OTHER SPORT ON TV-53334",
-      "PostedAt": "2026-11-09T11:37:25.4507377Z"
-    },
-    {
-      "Key": "OTHER SPORT ON TV-53335",
-      "PostedAt": "2026-11-09T11:37:34.4443818Z"
-    },
-    {
-      "Key": "OTHER SPORT ON TV-53336",
-      "PostedAt": "2026-11-09T11:37:38.330709Z"
-    },
-    {
-      "Key": "OTHER SPORT ON TV-53337",
-      "PostedAt": "2026-11-09T11:37:43.6581185Z"
-    },
-    {
-      "Key": "OTHER SPORT ON TV-53338",
-      "PostedAt": "2026-11-09T11:37:48.2758044Z"
-    },
-    {
-      "Key": "OTHER SPORT ON TV-53339",
-      "PostedAt": "2026-11-09T11:37:53.3475991Z"
-    },
-    {
-      "Key": "OTHER SPORT ON TV-53340",
-      "PostedAt": "2026-11-09T11:38:00.0077609Z"
-    },
-    {
-      "Key": "OTHER SPORT ON TV-53341",
-      "PostedAt": "2026-11-09T11:38:04.6848236Z"
-    },
-    {
-      "Key": "OTHER SPORT ON TV-53342",
-      "PostedAt": "2026-11-09T11:38:09.0810029Z"
-    },
-    {
-      "Key": "OTHER SPORT ON TV-53343",
-      "PostedAt": "2026-11-09T11:38:13.6724291Z"
-    },
-    {
-      "Key": "OTHER SPORT ON TV-53344",
-      "PostedAt": "2026-11-09T11:38:17.890031Z"
-    },
-    {
-      "Key": "RUGBY ON TV-17875",
-      "PostedAt": "2026-11-09T11:38:23.2653764Z"
-    },
-    {
-      "Key": "RUGBY ON TV-17876",
-      "PostedAt": "2026-11-09T11:38:27.6109325Z"
-    },
-    {
-      "Key": "RUGBY ON TV-17877",
-      "PostedAt": "2026-11-09T11:38:33.0511569Z"
-    },
-    {
-      "Key": "RUGBY ON TV-17878",
-      "PostedAt": "2026-11-09T11:38:38.1349889Z"
-    },
-    {
       "Key": "FOOTBALL ON TV-55678",
       "PostedAt": "2026-11-10T13:59:08.723674Z"
     },
@@ -883,6 +715,98 @@
     {
       "Key": "RUGBY ON TV-17893",
       "PostedAt": "2026-11-12T11:01:49.826374Z"
+    },
+    {
+      "Key": "US SPORT ON TV-57486",
+      "PostedAt": "2026-11-12T17:38:51.2406849Z"
+    },
+    {
+      "Key": "US SPORT ON TV-57487",
+      "PostedAt": "2026-11-12T17:38:57.3072962Z"
+    },
+    {
+      "Key": "US SPORT ON TV-57488",
+      "PostedAt": "2026-11-12T17:39:02.6749816Z"
+    },
+    {
+      "Key": "US SPORT ON TV-57489",
+      "PostedAt": "2026-11-12T17:39:08.3265233Z"
+    },
+    {
+      "Key": "US SPORT ON TV-57490",
+      "PostedAt": "2026-11-12T17:39:16.4429082Z"
+    },
+    {
+      "Key": "US SPORT ON TV-57491",
+      "PostedAt": "2026-11-12T17:39:24.9075539Z"
+    },
+    {
+      "Key": "US SPORT ON TV-57492",
+      "PostedAt": "2026-11-12T17:39:29.5421058Z"
+    },
+    {
+      "Key": "US SPORT ON TV-57493",
+      "PostedAt": "2026-11-12T17:39:34.7065854Z"
+    },
+    {
+      "Key": "US SPORT ON TV-57494",
+      "PostedAt": "2026-11-12T17:39:39.84194Z"
+    },
+    {
+      "Key": "US SPORT ON TV-57495",
+      "PostedAt": "2026-11-12T17:39:43.9705551Z"
+    },
+    {
+      "Key": "US SPORT ON TV-57496",
+      "PostedAt": "2026-11-12T17:39:48.2803616Z"
+    },
+    {
+      "Key": "US SPORT ON TV-57497",
+      "PostedAt": "2026-11-12T17:39:54.6853696Z"
+    },
+    {
+      "Key": "US SPORT ON TV-57498",
+      "PostedAt": "2026-11-12T17:39:58.9130407Z"
+    },
+    {
+      "Key": "US SPORT ON TV-57499",
+      "PostedAt": "2026-11-12T17:40:05.5198561Z"
+    },
+    {
+      "Key": "US SPORT ON TV-57500",
+      "PostedAt": "2026-11-12T17:40:09.4259307Z"
+    },
+    {
+      "Key": "US SPORT ON TV-57501",
+      "PostedAt": "2026-11-12T17:40:13.5184803Z"
+    },
+    {
+      "Key": "US SPORT ON TV-57502",
+      "PostedAt": "2026-11-12T17:40:22.1795656Z"
+    },
+    {
+      "Key": "US SPORT ON TV-57503",
+      "PostedAt": "2026-11-12T17:40:26.4850403Z"
+    },
+    {
+      "Key": "US SPORT ON TV-57504",
+      "PostedAt": "2026-11-12T17:40:30.6255362Z"
+    },
+    {
+      "Key": "US SPORT ON TV-57505",
+      "PostedAt": "2026-11-12T17:40:37.2010182Z"
+    },
+    {
+      "Key": "US SPORT ON TV-57506",
+      "PostedAt": "2026-11-12T17:40:41.350863Z"
+    },
+    {
+      "Key": "US SPORT ON TV-57507",
+      "PostedAt": "2026-11-12T17:40:47.0165311Z"
+    },
+    {
+      "Key": "US SPORT ON TV-57508",
+      "PostedAt": "2026-11-12T17:40:51.8876789Z"
     }
   ]
 }
